@@ -415,6 +415,7 @@ nav a:hover {
 
 .ml-2 {
   margin-left: var(--spacing-two);
+  color: red;
 }
 
 .ml-3 {
