@@ -4,23 +4,29 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 //special type of React component that we'll use to provide data to all of the other components
 
 import { ApolloProvider } from '@apollo/react-hooks';
-
 // We'll use the second, ApolloClient, to get that data when we're ready to use it.
 import ApolloClient from 'apollo-boost';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
+
 import Home from './pages/Home';
-
-
 import Login from './pages/Login';
 import NoMatch from './pages/NoMatch';
 import SingleThought from './pages/SingleThought';
 import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 
-
 const client = new ApolloClient({
+  request: operation => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    });
+  },
   uri: '/graphql'
 });
 
